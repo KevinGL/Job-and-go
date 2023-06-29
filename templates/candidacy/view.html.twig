@@ -23,13 +23,15 @@
             {% endif %}
         </li>
 
-        <li>
-            Vous avez noté les infos suivantes :
+        {% if cand.comments is not null %}
+            <li>
+                Vous avez noté les infos suivantes :
 
-            <p>
-                {{ cand.comments }}
-            </p>
-        </li>
+                <p>
+                    {{ cand.comments }}
+                </p>
+            </li>
+        {% endif %}
 
         <li>
             {% if cand.issue is null %}

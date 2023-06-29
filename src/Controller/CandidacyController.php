@@ -21,7 +21,7 @@ class CandidacyController extends AbstractController
     {
         $queryBuilder = $repo->createQueryBuilder("c");
 
-        $queryBuilder->orderBy("c.candidacy_date", "ASC");
+        $queryBuilder->orderBy("c.candidacy_date", "DESC");
         
         $candidacies = $queryBuilder->getQuery()->getResult();
 
@@ -85,7 +85,8 @@ class CandidacyController extends AbstractController
                 [
                     "class" => "form-control"
                 ],
-                "label" => "Commentaires"
+                "label" => "Commentaires",
+                "required" => false
             ])
 
             /*->add("issue", TextType::class,
@@ -166,13 +167,25 @@ class CandidacyController extends AbstractController
                     ]
                 ])
 
+                ->add("relaunch_date", DateType::class,
+                [
+                    "widget" => "single_text",
+                    "label" => "Date de relance",
+                    "attr" =>
+                    [
+                        "class" => "form-control form-icon-trailing"
+                    ],
+                    "required" => false
+                ])
+
 				->add("comments", TextareaType::class,
                 [
                     "attr" =>
                     [
                         "class" => "form-control"
                     ],
-                    "label" => "Commentaires"
+                    "label" => "Commentaires",
+                    "required" => false
                 ])
 
 				->add("issue", ChoiceType::class,
