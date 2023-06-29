@@ -8,9 +8,35 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
+<div class="container">
     <h1>Liste de vos candidatures</h1>
 
-    
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nom de la société</th>
+                <th scope="col">Type de candidature</th>
+                <th scope="col">Date de candidature</th>
+                <th scope="col">Date de relance</th>
+                <th scope="col">Commentaires</th>
+                <th scope="col">Issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cand in candidacies %}
+                <tr>
+                    <th scope="row">{{ cand.society }}</th>
+                    <td>{{ cand.type }}</td>
+                    <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
+                    <td>{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
+                    <td>{{ cand.comments }}</td>
+                    <td>{{ cand.issue }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a type="button" class="btn btn-info" href="/candacies/add">Ajouter une candidature</a>
+
 </div>
 {% endblock %}

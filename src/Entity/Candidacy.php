@@ -108,4 +108,9 @@ class Candidacy
 
         return $this;
     }
+
+    public function __construct()
+    {
+        $this->candidacy_date = new \DateTimeImmutable();
+    }
 }
