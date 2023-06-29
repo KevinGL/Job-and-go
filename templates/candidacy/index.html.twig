@@ -18,8 +18,8 @@
                 <th scope="col">Type de candidature</th>
                 <th scope="col">Date de candidature</th>
                 <th scope="col">Date de relance</th>
-                <th scope="col">Commentaires</th>
                 <th scope="col">Issue</th>
+                <th scope="col">Urgence relance</th>
             </tr>
         </thead>
         <tbody>
@@ -29,14 +29,23 @@
                     <td>{{ cand.type }}</td>
                     <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
                     <td>{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
-                    <td>{{ cand.comments }}</td>
-                    <td>{{ cand.issue }}</td>
+                    <td>
+                        {% if cand.issue is null %}
+                            Sans réponse pour le moment
+                        {% elseif cand.issue == "ok" %}
+                            <b>Recruté :)</b>
+                        {% elseif cand.issue == "no" %}
+                            <b>Refusé :(</b>
+                        {% endif %}
+                    </td>
+                    <td style="background-color: {{ cand.needRelaunch }}"></td>
+                    <td><a type="button" class="btn btn-info" href="{{ path('view_candidacy', {'id': cand.id}) }}">Détail de la candidature</a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <a type="button" class="btn btn-info" href="/candacies/add">Ajouter une candidature</a>
+    <a type="button" class="btn btn-info" href="{{ path('add_candidacy') }}">Ajouter une candidature</a>
 
 </div>
 {% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de la candidature{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <h1>Détail de la candidature</h1>
+    <br>
+
+    <ul>
+        <li>Vous avez postulé chez <u>{{ cand.society }}</u> le {{ cand.candidacyDate | date("d-m-Y") }} via <u>{{ cand.type }}</u></li>
+        
+        <li>
+            {% if cand.relaunchDate is null %}
+                Vous n'avez pas relancé pour le moment
+            {% else %}
+                Vous avez relancé le {{ cand.relaunchDate | date("d-m-Y") }}
+            {% endif %}
+        </li>
+
+        <li>
+            Vous avez noté les infos suivantes :
+
+            <p>
+                {{ cand.comments }}
+            </p>
+        </li>
+
+        <li>
+            {% if cand.issue is null %}
+                Vous êtes sans réponse pour le moment
+            {% elseif cand.issue == "ok" %}
+                <b>Vous avez été recruté, félicitations !!! :) :)</b>
+            {% elseif cand.issue == "no" %}
+                <b>Votre candidature a malheureusement été refusée :( :(</b>
+            {% endif %}
+        </li>
+
+        {% if cand.needRelaunch != "white" %}
+            <li>
+                {% if cand.needRelaunch == "#5bfe6a" %}
+                    <b>Il n'est pas encore temps de relancer les recruteurs</b>
+                {% elseif cand.needRelaunch == "yellow" %}
+                    <b>Une relance serait envisageable</b>
+                {% elseif cand.needRelaunch == "#f9a33e" %}
+                    <b>Il est important de relancer les recruteurs</b>
+                {% elseif cand.needRelaunch == "red" %}
+                    <b>Il est urgent de relancer les recruteurs !!</b>
+                {% elseif cand.needRelaunch == "black" %}
+                    <b>A relancer de toute urgence !!!</b>
+                {% endif %}
+            </li>
+        {% endif %}
+    </ul>
+
+    <br>
+    <a type="button" class="btn btn-success" href="{{ path('app_candidacies') }}">Listes de vos candidatures</a>
+    <a type="button" class="btn btn-warning" href="{{ path('edit_candidacies', {'id': cand.id}) }}">Modifier cette candidature</a>
+    <div type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer cette candidature</div>
+
+</div>
+
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression de votre candidature vers <u>{{ cand.society }}</u></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr ?</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary" href="{{ path('delete_candidacies', {'id': cand.id}) }}">Oui</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

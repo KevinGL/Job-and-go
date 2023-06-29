@@ -111,6 +111,6 @@ class Candidacy
 
     public function __construct()
     {
-        $this->candidacy_date = new \DateTimeImmutable();
+        //$this->candidacy_date = new \DateTimeImmutable();
     }
 }

@@ -23,7 +23,9 @@ class CandidacyController extends AbstractController
 
         $queryBuilder->orderBy("c.candidacy_date", "ASC");
         
-        $candidacies = $queryBuilder->getQuery()->getResult();//$repo->findAll();
+        $candidacies = $queryBuilder->getQuery()->getResult();
+
+        $this->getNeedRelaunch($candidacies);
         
         return $this->render('candidacy/index.html.twig',
         [
@@ -64,13 +66,18 @@ class CandidacyController extends AbstractController
                 "label" => "Type de candidature"
             ])
 
-            /*->add("candidacy_date", DateType::class,
+            ->add("candidacy_date", DateType::class,
             [
                 "widget" => "single_text",
-                "label" => "Date de candidature"
+                "label" => "Date de candidature",
+                "attr" =>
+                [
+                    "class" => "form-control form-icon-trailing"
+                ],
+                "data" => new \DateTimeImmutable()
             ])
 
-            ->add("relaunch_date", DateType::class)*/
+            //->add("relaunch_date", DateType::class)
 
             ->add("comments", TextareaType::class,
             [
@@ -104,5 +111,199 @@ class CandidacyController extends AbstractController
         }
         
         return $this->render('candidacy/add.html.twig', ["form" => $form]);
+    }
+
+    #[Route('/candidacies/view/{id}', name: 'view_candidacy')]
+    public function view($id, CandidacyRepository $repo): Response
+    {
+        $cand = $repo->find($id);
+
+        $this->getNeedRelaunchOne($cand);
+
+        return $this->render('candidacy/view.html.twig', ["cand" => $cand]);
+    }
+
+    #[Route('/candidacies/edit/{id}', name: 'edit_candidacies')]
+    public function edit($id, Request $request, CandidacyRepository $repo, EntityManagerInterface $entityManager): Response
+    {
+        $cand = $repo->find($id);
+
+        $form = $this->createFormBuilder($cand)
+
+				->add("society", TextType::class,
+                [
+                    "attr" =>
+                    [
+                        "class" => "form-control"
+                    ],
+                    "label" => "Nom de la société"
+                ])
+
+				->add("type", ChoiceType::class,
+                [
+                    "attr" =>
+                    [
+                        "class" => "form-select"
+                    ],
+                    "choices" =>
+                    [
+                        "Pôle Emploi" => "Pôle Emploi",
+                        "Indeed" => "Indeed",
+                        "LinkedIn" => "LinkedIn",
+                        "Spontané" => "Spontané",
+                        "Autre" => "Autre"
+                    ],
+                    "label" => "Type de candidature"
+                ])
+
+				->add("candidacy_date", DateType::class,
+                [
+                    "widget" => "single_text",
+                    "label" => "Date de candidature",
+                    "attr" =>
+                    [
+                        "class" => "form-control form-icon-trailing"
+                    ]
+                ])
+
+				->add("comments", TextareaType::class,
+                [
+                    "attr" =>
+                    [
+                        "class" => "form-control"
+                    ],
+                    "label" => "Commentaires"
+                ])
+
+				->add("issue", ChoiceType::class,
+                [
+                    "attr" =>
+                    [
+                        "class" => "form-select"
+                    ],
+                    "choices" =>
+                    [
+                        "Pas de réponse pour le moment" => null,
+                        "Réponse positive :)" => "ok",
+                        "Réponse négative :(" => "no",
+                    ],
+                    "label" => "Issue de la candidature"
+                ])
+                
+				->getForm();
+			
+			$form->handleRequest($request);	
+			
+			if($form->isSubmitted() && $form->isValid())
+			{
+				$entityManager->persist($cand);
+                $entityManager->flush();
+
+                return $this->redirectToRoute("app_candidacies");
+			}
+			
+			return $this->render('candidacy/edit.html.twig', ["form" => $form]);
+    }
+
+    #[Route('/candidacies/delete/{id}', name: 'delete_candidacies')]
+    public function delete($id, CandidacyRepository $repo, EntityManagerInterface $entityManager): Response
+    {
+        $cand = $repo->find($id);
+
+        $entityManager->remove($cand);
+        $entityManager->flush();
+
+        return $this->redirectToRoute("app_candidacies");
+    }
+
+    private function getNeedRelaunch(&$candidacies)
+    {
+        foreach($candidacies as $cand)
+        {
+            if($cand->getRelaunchDate() == null && $cand->getIssue() == null)
+            {
+                $now = new \DateTimeImmutable();
+
+                $delay = $now->diff($cand->getCandidacyDate())->format("%a");
+
+                if($delay < 14)
+                {
+                    $cand->needRelaunch = "#5bfe6a";
+                }
+
+                else
+                if($delay >= 14 && $delay < 21)
+                {
+                    $cand->needRelaunch = "yellow";
+                }
+
+                else
+                if($delay >= 21 && $delay < 28)
+                {
+                    $cand->needRelaunch = "#f9a33e";
+                }
+
+                else
+                if($delay >= 28 && $delay < 35)
+                {
+                    $cand->needRelaunch = "red";
+                }
+
+                else
+                if($delay >= 35)
+                {
+                    $cand->needRelaunch = "black";
+                }
+            }
+
+            else
+            {
+                $cand->needRelaunch = "white";
+            }
+        }
+    }
+
+    private function getNeedRelaunchOne(&$cand)
+    {
+        if($cand->getRelaunchDate() == null && $cand->getIssue() == null)
+        {
+            $now = new \DateTimeImmutable();
+
+            $delay = $now->diff($cand->getCandidacyDate())->format("%a");
+
+            if($delay < 14)
+            {
+                $cand->needRelaunch = "#5bfe6a";
+            }
+
+            else
+            if($delay >= 14 && $delay < 21)
+            {
+                $cand->needRelaunch = "yellow";
+            }
+
+            else
+            if($delay >= 21 && $delay < 28)
+            {
+                $cand->needRelaunch = "#f9a33e";
+            }
+
+            else
+            if($delay >= 28 && $delay < 35)
+            {
+                $cand->needRelaunch = "red";
+            }
+
+            else
+            if($delay >= 35)
+            {
+                $cand->needRelaunch = "black";
+            }
+        }
+
+        else
+        {
+            $cand->needRelaunch = "white";
+        }
     }
 }
