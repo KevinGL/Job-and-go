@@ -32,6 +32,9 @@ class Candidacy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $issue = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $contractSearched = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,6 +114,20 @@ class Candidacy
 
     public function __construct()
     {
-        //$this->candidacy_date = new \DateTimeImmutable();
+        $this->candidacy_date = new \DateTimeImmutable();
+
+        $this->contractSearched = "CDD/CDI";
+    }
+
+    public function getContractSearched(): ?string
+    {
+        return $this->contractSearched;
+    }
+
+    public function setContractSearched(string $contractSearched): static
+    {
+        $this->contractSearched = $contractSearched;
+
+        return $this;
     }
 }

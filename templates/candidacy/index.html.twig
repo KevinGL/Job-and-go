@@ -11,11 +11,16 @@
 <div class="container">
     <h1>Liste de vos candidatures</h1>
 
+    <br>
+
+    <a type="button" class="btn btn-info" href="{{ path('add_candidacy') }}">Ajouter une candidature</a>
+
     <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Nom de la société</th>
                 <th scope="col">Type de candidature</th>
+                <th scope="col">Contrat recherché</th>
                 <th scope="col">Date de candidature</th>
                 <th scope="col">Date de relance</th>
                 <th scope="col">Issue</th>
@@ -27,6 +32,7 @@
                 <tr>
                     <th scope="row">{{ cand.society }}</th>
                     <td>{{ cand.type }}</td>
+                    <td>{{ cand.contractSearched }}</td>
                     <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
                     <td>{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
                     <td>
@@ -44,8 +50,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <a type="button" class="btn btn-info" href="{{ path('add_candidacy') }}">Ajouter une candidature</a>
 
 </div>
 {% endblock %}

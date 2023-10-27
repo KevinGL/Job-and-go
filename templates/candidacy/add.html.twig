@@ -16,6 +16,12 @@
         <br>
         {{ form_row(form.type) }}
         <br>
+        {{ form_row(form.contractSearched) }}
+        <br>
+        <!--<div id="other">
+            <input id="otherValue" type="text" class="form-control">
+            <br>
+        </div>-->
         {{ form_row(form.candidacy_date) }}
         <br>
         {{ form_row(form.comments) }}
@@ -27,4 +33,19 @@
     <a type="button" class="btn btn-info" href="{{ path('app_candidacies') }}">Vos candidatures</a>
 
 </div>
+
+<script>
+    /*$("#other").hide();
+
+    $("#form_type").click(() =>
+    {
+        if($("#form_type").val() == "Autre")
+        {
+            $("#other").show();
+        }
+    });
+
+    console.log($("#form_type").val("aa"));*/
+</script>
+
 {% endblock %}
