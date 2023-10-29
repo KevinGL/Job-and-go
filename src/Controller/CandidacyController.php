@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -61,6 +62,7 @@ class CandidacyController extends AbstractController
                     "Indeed" => "Indeed",
                     "LinkedIn" => "LinkedIn",
                     "La Bonne Boîte" => "La Bonne Boîte",
+                    "La Bonne Alternance" => "La Bonne Alternance",
                     "Spontané" => "Spontané",
                     "Autre" => "Autre"
                 ],
@@ -169,6 +171,7 @@ class CandidacyController extends AbstractController
                         "Indeed" => "Indeed",
                         "LinkedIn" => "LinkedIn",
                         "La Bonne Boîte" => "La Bonne Boîte",
+                        "La Bonne Alternance" => "La Bonne Alternance",
                         "Spontané" => "Spontané",
                         "Autre" => "Autre"
                     ],
@@ -352,5 +355,29 @@ class CandidacyController extends AbstractController
         {
             $cand->needRelaunch = "white";
         }
+    }
+
+    #[Route('/candidacies/deleteserverals/{ids}', name: 'delete_serverals_candidacies')]
+    public function deleteSeverals($ids, CandidacyRepository $repo, EntityManagerInterface $entityManager): Response
+    {
+        $values = explode(",", $ids);
+
+        foreach($values as $value)
+        {
+            $item = $repo->find($value);
+
+            $entityManager->remove($item);
+        }
+
+        $entityManager->flush();
+
+        $response = new JsonResponse();
+
+        $data = ["message" => "Success"];
+
+        $response->setStatusCode(200);
+        $response->setData($data);
+
+        return $response;
     }
 }

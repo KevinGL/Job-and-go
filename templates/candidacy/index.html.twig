@@ -14,10 +14,12 @@
     <br>
 
     <a type="button" class="btn btn-info" href="{{ path('add_candidacy') }}">Ajouter une candidature</a>
+    <div type="button" class="btn btn-danger" id="deleteSelected">Supprimer</div>
 
     <table class="table table-hover">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Nom de la société</th>
                 <th scope="col">Type de candidature</th>
                 <th scope="col">Contrat recherché</th>
@@ -30,6 +32,7 @@
         <tbody>
             {% for cand in candidacies %}
                 <tr>
+                    <td><input type="checkbox" class="checkbox" id="{{ cand.id }}" /></td>
                     <th scope="row">{{ cand.society }}</th>
                     <td>{{ cand.type }}</td>
                     <td>{{ cand.contractSearched }}</td>
@@ -45,7 +48,7 @@
                         {% endif %}
                     </td>
                     <td style="background-color: {{ cand.needRelaunch }}"></td>
-                    <td><a type="button" class="btn btn-info" href="{{ path('view_candidacy', {'id': cand.id}) }}">Détail de la candidature</a></td>
+                    <td><a type="button" class="btn btn-info" href={{ path('view_candidacy', {'id': cand.id}) }}>Détail de la candidature</a></td>
                 </tr>
             {% endfor %}
         </tbody>
