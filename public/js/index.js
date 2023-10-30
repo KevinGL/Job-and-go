@@ -15,12 +15,12 @@ $(document).ready(function()
         else
         {
             const index = candidaciesSelected.indexOf(this.id);
-            
+
             if(index != -1)
             {
                 candidaciesSelected.splice(index, 1);
 
-                if(candidaciesSelected == [])
+                if(candidaciesSelected.length == 0)
                 {
                     $("#deleteSelected").hide();
                 }
@@ -34,8 +34,6 @@ $(document).ready(function()
         {
             ids = candidaciesSelected.join();
 
-            //console.log(ids);
-            
             $.get("/candidacies/deleteserverals/" + ids, (data, status) =>
             {
                 if(status == "success")
@@ -47,6 +45,27 @@ $(document).ready(function()
                     alert("Une erreur s'est produite");
                 }
             });
+        }
+    });
+
+    $("#select_all").change(function()
+    {
+        candidaciesSelected = [];
+        
+        for(let i=0; i<$(".checkbox").length; i++)
+        {
+            $(".checkbox")[i].checked = this.checked;
+
+            candidaciesSelected.push($(".checkbox")[i].id);
+        }
+
+        if(this.checked)
+        {
+            $("#deleteSelected").show();
+        }
+        else
+        {
+            $("#deleteSelected").hide();
         }
     });
 });
