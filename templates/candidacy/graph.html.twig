@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de vos candidatures{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <h1>Bilan mensuel</h1>
+
+    <br>
+    <a type="button" class="btn btn-info" href="{{ path('app_candidacies') }}">Vos candidatures</a>
+    <br>
+    <br>
+
+    {% set width = 1200 %}
+    {% set gap = width / nbDays %}
+
+    <svg width="{{ width }}" height="700" viewBox="0 0 {{ width }} 600" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="600" x2="1200" y2="600" stroke="black" />
+        <line x1="0" y1="600" x2="0" y2="0" stroke="black" />
+
+        {% set max = 0 %}
+
+        {% for n in nbCand %}
+
+            {% if n > max  %}
+                {% set max = n %}
+            {% endif %}
+
+        {% endfor %}
+
+        {% set ratio = 600 / max %}
+
+        {% set x = gap/2 %}
+
+        {% for i in 0..nbDays %}
+            
+            <line x1="{{ x }}" y1="600" x2="{{ x }}" y2="620" stroke="black" />
+            <text x="{{ x-4 }}" y="640" stroke="black" >{{ i+1 }}</text>
+            
+            {% set x = x + gap %}
+        {% endfor %}
+
+        {% set x = 0 %}
+
+        {% for n in nbCand %}
+            {% set height = n * ratio %}
+            
+            {% if n != 0 %}
+                <rect x="{{ x }}" y="{{600 - height}}" width="{{ gap }}" height="{{ height }}" fill="#4aa5f5" stroke="black" />
+                <text x="{{ x + gap/2 - 4 }}" y="{{ 600 - height/2 }}" stroke="black">{{ n }}</text>
+            {% endif %}
+
+            {% set x = x + gap %}
+        {% endfor %}
+
+    </svg>
+
+</div>
+{% endblock %}

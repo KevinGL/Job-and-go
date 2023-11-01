@@ -56,7 +56,14 @@ $(document).ready(function()
         {
             $(".checkbox")[i].checked = this.checked;
 
-            candidaciesSelected.push($(".checkbox")[i].id);
+            if(this.checked)
+            {
+                candidaciesSelected.push($(".checkbox")[i].id);
+            }
+            else
+            {
+                candidaciesSelected = [];
+            }
         }
 
         if(this.checked)
