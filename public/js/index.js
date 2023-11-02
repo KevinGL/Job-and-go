@@ -75,4 +75,12 @@ $(document).ready(function()
             $("#deleteSelected").hide();
         }
     });
+
+    $("#validMonth").click(() =>
+    {
+        if($("#month").val() != "")
+        {
+            document.location.href = "/candidacies/graph_by_date/" + $("#month").val();
+        }
+    });
 });

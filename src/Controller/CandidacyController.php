@@ -394,14 +394,60 @@ class CandidacyController extends AbstractController
         $actualDate = new \DateTimeImmutable();
 
         $actualYear = $actualDate->format("Y");
-        $actualMonth = "10";//$actualDate->format("m");
+        $actualMonth = $actualDate->format("m");
         $nbDays = cal_days_in_month(CAL_GREGORIAN, $actualMonth, $actualYear);
 
         $nbCandidaciesPerDay = [];
 
         for($i=0; $i<$nbDays; $i++)
         {
-            $key = "day_" . ($i+1);
+            $key = "day_" . sprintf("%02d", $i+1);
+            
+            $nbCandidaciesPerDay[$key] = 0;
+        }
+
+        foreach($candidacies as $c)
+        {
+            $year = $c->getCandidacyDate()->format("Y");
+            $month = $c->getCandidacyDate()->format("m");
+            $day = $c->getCandidacyDate()->format("d");
+
+            if($year == $actualYear && $month == $actualMonth)
+            {
+                $key = "day_" . $day;
+                
+                $nbCandidaciesPerDay[$key]++;
+            }
+        }
+
+        return $this->render('candidacy/graph.html.twig',
+        [
+            "nbCand" => $nbCandidaciesPerDay,
+            "nbDays" => $nbDays
+        ]);
+    }
+
+    #[Route('/candidacies/graph_by_date/{date}', name: 'graph_by_date')]
+    public function graphByDate($date, CandidacyRepository $repo): Response
+    {
+        $queryBuilder = $repo->createQueryBuilder("c");
+
+        $queryBuilder->orderBy("c.candidacy_date", "ASC");
+        
+        $candidacies = $queryBuilder->getQuery()->getResult();
+
+        $actualYear;
+        $actualMonth;
+        
+        sscanf($date, "%d-%d", $actualYear, $actualMonth);
+
+        $nbDays = cal_days_in_month(CAL_GREGORIAN, $actualMonth, $actualYear);
+
+        $nbCandidaciesPerDay = [];
+
+        for($i=0; $i<$nbDays; $i++)
+        {
+            $key = "day_" . sprintf("%02d", $i+1);
             
             $nbCandidaciesPerDay[$key] = 0;
         }

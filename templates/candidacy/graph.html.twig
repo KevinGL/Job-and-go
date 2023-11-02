@@ -23,18 +23,6 @@
         <line x1="0" y1="600" x2="1200" y2="600" stroke="black" />
         <line x1="0" y1="600" x2="0" y2="0" stroke="black" />
 
-        {% set max = 0 %}
-
-        {% for n in nbCand %}
-
-            {% if n > max  %}
-                {% set max = n %}
-            {% endif %}
-
-        {% endfor %}
-
-        {% set ratio = 600 / max %}
-
         {% set x = gap/2 %}
 
         {% for i in 0..nbDays %}
@@ -45,18 +33,32 @@
             {% set x = x + gap %}
         {% endfor %}
 
-        {% set x = 0 %}
+        {% set max = 0 %}
 
         {% for n in nbCand %}
-            {% set height = n * ratio %}
-            
-            {% if n != 0 %}
-                <rect x="{{ x }}" y="{{600 - height}}" width="{{ gap }}" height="{{ height }}" fill="#4aa5f5" stroke="black" />
-                <text x="{{ x + gap/2 - 4 }}" y="{{ 600 - height/2 }}" stroke="black">{{ n }}</text>
+
+            {% if n > max  %}
+                {% set max = n %}
             {% endif %}
 
-            {% set x = x + gap %}
         {% endfor %}
+
+        {% if max != 0 %}
+            {% set ratio = 600 / max %}
+
+            {% set x = 0 %}
+
+            {% for n in nbCand %}
+                {% set height = n * ratio %}
+                
+                {% if n != 0 %}
+                    <rect x="{{ x }}" y="{{600 - height}}" width="{{ gap }}" height="{{ height }}" fill="#4aa5f5" stroke="black" />
+                    <text x="{{ x + gap/2 - 4 }}" y="{{ 600 - height/2 }}" stroke="black">{{ n }}</text>
+                {% endif %}
+
+                {% set x = x + gap %}
+            {% endfor %}
+        {% endif %}
 
     </svg>
 
