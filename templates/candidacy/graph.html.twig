@@ -16,21 +16,23 @@
     <br>
     <br>
 
-    {% set width = 1200 %}
-    {% set gap = width / nbDays %}
+    {% set width = 1220 %}
+    {% set height = 700 %}
 
-    <svg width="{{ width }}" height="700" viewBox="0 0 {{ width }} 600" xmlns="http://www.w3.org/2000/svg">
-        <line x1="0" y1="600" x2="1200" y2="600" stroke="black" />
-        <line x1="0" y1="600" x2="0" y2="0" stroke="black" />
+    {% set gapX = width / nbDays %}
 
-        {% set x = gap/2 %}
+    <svg width="{{ width+20 }}" height="{{ height }}" viewBox="0 0 {{ width+20 }} {{ height-100 }}" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="{{ height-100 }}" x2="{{ width }}" y2="{{ height-100 }}" stroke="black" />
+        <line x1="20" y1="{{ height-100 }}" x2="20" y2="0" stroke="black" />
+
+        {% set x = gapX/2 + 20 %}
 
         {% for i in 0..nbDays %}
             
-            <line x1="{{ x }}" y1="600" x2="{{ x }}" y2="620" stroke="black" />
-            <text x="{{ x-4 }}" y="640" stroke="black" >{{ i+1 }}</text>
+            <line x1="{{ x }}" y1="{{ height-100 }}" x2="{{ x }}" y2="{{ height-100+20 }}" stroke="black" />
+            <text x="{{ x-4 }}" y="{{ height-100+40 }}" stroke="black" >{{ i+1 }}</text>
             
-            {% set x = x + gap %}
+            {% set x = x + gapX %}
         {% endfor %}
 
         {% set max = 0 %}
@@ -44,19 +46,30 @@
         {% endfor %}
 
         {% if max != 0 %}
+            {% set gapY = (height-100) / max %}
+
+            {% set y = height-100 %}
+
+            {% for i in 0..max %}
+            
+                <text x="0" y="{{ y }}" stroke="black">{{ i }}</text>
+                
+                {% set y = y - gapY %}
+            {% endfor %}
+
             {% set ratio = 600 / max %}
 
-            {% set x = 0 %}
+            {% set x = 20 %}
 
             {% for n in nbCand %}
-                {% set height = n * ratio %}
+                {% set heightStick = n * ratio %}
                 
                 {% if n != 0 %}
-                    <rect x="{{ x }}" y="{{600 - height}}" width="{{ gap }}" height="{{ height }}" fill="#4aa5f5" stroke="black" />
-                    <text x="{{ x + gap/2 - 4 }}" y="{{ 600 - height/2 }}" stroke="black">{{ n }}</text>
+                    <rect x="{{ x }}" y="{{600 - heightStick}}" width="{{ gapX }}" height="{{ heightStick }}" fill="#4aa5f5" stroke="black" />
+                    <text x="{{ x + gapX/2 - 4 }}" y="{{ 600 - heightStick/2 }}" stroke="black">{{ n }}</text>
                 {% endif %}
 
-                {% set x = x + gap %}
+                {% set x = x + gapX %}
             {% endfor %}
         {% endif %}
 
