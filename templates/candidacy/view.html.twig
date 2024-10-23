@@ -13,7 +13,7 @@
     <br>
 
     <ul>
-        <li>Vous avez postulé chez <u>{{ cand.society }}</u> le {{ cand.candidacyDate | date("d-m-Y") }} via <u>{{ cand.type }}</u></li>
+        <li>Vous avez postulé chez <u>{{ cand.society }}</u> le {{ cand.candidacyDate | date("d-m-Y") }} via <u>{{ cand.type }}</u>{% if cand.job is not null %} pour le poste de <u>{{ cand.job }}</u>{% endif %}</li>
         
         <li>
             {% if cand.relaunchDate is null %}

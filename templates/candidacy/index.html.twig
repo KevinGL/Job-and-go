@@ -52,6 +52,7 @@
                 <th scope="col">Type de candidature</th>
                 <th scope="col">Contrat recherché</th>
                 <th scope="col">Date de candidature</th>
+                <th scope="col">Poste proposé</th>
                 <th scope="col">Date de relance</th>
                 <th scope="col">Issue</th>
                 <th scope="col">Urgence relance</th>
@@ -65,6 +66,7 @@
                     <td>{{ cand.type }}</td>
                     <td>{{ cand.contractSearched }}</td>
                     <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
+                    <td>{{ cand.job }}</td>
                     <td>{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
                     <td>
                         {% if cand.issue is null %}

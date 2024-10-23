@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CandidacyRepository::class)]
+#[ORM\Table(name: "candidacies")]
 class Candidacy
 {
     #[ORM\Id]
@@ -34,6 +35,9 @@ class Candidacy
 
     #[ORM\Column(length: 255)]
     private ?string $contractSearched = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $job = null;
 
     public function getId(): ?int
     {
@@ -127,6 +131,18 @@ class Candidacy
     public function setContractSearched(string $contractSearched): static
     {
         $this->contractSearched = $contractSearched;
+
+        return $this;
+    }
+
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    public function setJob(string $job): static
+    {
+        $this->job = $job;
 
         return $this;
     }

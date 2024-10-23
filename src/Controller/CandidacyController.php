@@ -58,8 +58,10 @@ class CandidacyController extends AbstractController
                 ],
                 "choices" =>
                 [
-                    "Pôle Emploi" => "Pôle Emploi",
+                    "France Travail" => "France Travail",
                     "Indeed" => "Indeed",
+                    "Hello Work" => "Hello Work",
+                    "Welcome to the jungle" => "Welcome to the jungle",
                     "LinkedIn" => "LinkedIn",
                     "La Bonne Boîte" => "La Bonne Boîte",
                     "La Bonne Alternance" => "La Bonne Alternance",
@@ -97,6 +99,15 @@ class CandidacyController extends AbstractController
             ])
 
             //->add("relaunch_date", DateType::class)
+
+            ->add("job", TextType::class,
+            [
+                "attr" =>
+                [
+                    "class" => "form-control"
+                ],
+                "label" => "Poste proposé"
+            ])
 
             ->add("comments", TextareaType::class,
             [
