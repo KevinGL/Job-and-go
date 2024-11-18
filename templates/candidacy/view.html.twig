@@ -63,7 +63,7 @@
     <br>
     <a type="button" class="btn btn-success" href="{{ path('app_candidacies') }}">Listes de vos candidatures</a>
     <a type="button" class="btn btn-warning" href="{{ path('edit_candidacies', {'id': cand.id}) }}">Modifier cette candidature</a>
-    <div type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer cette candidature</div>
+    <a type="button" class="btn btn-danger" href="{{ path('delete_candidacies', {'id': cand.id}) }}">Supprimer cette candidature</a>
 
 </div>
 

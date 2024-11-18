@@ -62,6 +62,7 @@ class CandidacyController extends AbstractController
                     "Indeed" => "Indeed",
                     "Hello Work" => "Hello Work",
                     "Welcome to the jungle" => "Welcome to the jungle",
+                    "Meteo Job" => "Meteo Job",
                     "LinkedIn" => "LinkedIn",
                     "La Bonne Boîte" => "La Bonne Boîte",
                     "La Bonne Alternance" => "La Bonne Alternance",
@@ -119,14 +120,19 @@ class CandidacyController extends AbstractController
                 "required" => false
             ])
 
-            /*->add("issue", TextType::class,
+            ->add("fail", ChoiceType::class,
             [
                 "attr" =>
                 [
-                    "class" => "form-control"
+                    "class" => "form-select"
                 ],
-                "label" => "Etat final"
-            ])*/
+                "choices" =>
+                [
+                    "Oui" => true,
+                    "Non" => false
+                ],
+                "label" => "Candidature ne pouvant aboutir"
+            ])
 
             ->getForm();
         
@@ -251,6 +257,20 @@ class CandidacyController extends AbstractController
                     ],
                     "label" => "Issue de la candidature"
                 ])
+
+                ->add("fail", ChoiceType::class,
+                [
+                    "attr" =>
+                    [
+                        "class" => "form-select"
+                    ],
+                    "choices" =>
+                    [
+                        "Oui" => true,
+                        "Non" => false
+                    ],
+                    "label" => "Candidature ne pouvant aboutir"
+                ])
                 
 				->getForm();
 			
@@ -282,7 +302,7 @@ class CandidacyController extends AbstractController
     {
         foreach($candidacies as $cand)
         {
-            if($cand->getRelaunchDate() == null && $cand->getIssue() == null)
+            if($cand->getRelaunchDate() == null && $cand->getIssue() == null && !$cand->getFail())
             {
                 $now = new \DateTimeImmutable();
 
@@ -316,6 +336,12 @@ class CandidacyController extends AbstractController
                 {
                     $cand->needRelaunch = "black";
                 }
+            }
+
+            else
+            if($cand->getFail())
+            {
+                $cand->needRelaunch = "#cacaca";
             }
 
             else
