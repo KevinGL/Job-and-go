@@ -20,7 +20,7 @@ class PartialCand
     #[ORM\Column(length: 255)]
     private ?string $contract_searched = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comments = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -29,7 +29,7 @@ class PartialCand
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $relaunch_date = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $issue = null;
 
     #[ORM\Column(length: 255)]

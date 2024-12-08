@@ -256,7 +256,7 @@ class CandidacyController extends AbstractController
                     "choices" =>
                     [
                         "Pas de réponse pour le moment" => null,
-                        "Réponse positive :)" => "ok",
+                        "Entretien obtenu :)" => "ok",
                         "Réponse négative :(" => "no",
                         "Offre expirée :(" => "off",
                         "Ne recrute pas" => "unav"

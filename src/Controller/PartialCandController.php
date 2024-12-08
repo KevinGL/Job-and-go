@@ -24,6 +24,8 @@ class PartialCandController extends AbstractController
         $queryBuilder->orderBy("c.candidacy_date", "DESC");
         
         $candidacies = $queryBuilder->getQuery()->getResult();
+
+        $this->getNeedRelaunch($candidacies);
         
         return $this->render('partial_cand/index.html.twig',
         [
@@ -191,7 +193,7 @@ class PartialCandController extends AbstractController
                 "choices" =>
                 [
                     "Pas de réponse pour le moment" => null,
-                    "Réponse positive :)" => "ok",
+                    "Entretien obtenu :)" => "ok",
                     "Réponse négative :(" => "no"
                 ],
                 "label" => "Issue de la candidature"
@@ -221,6 +223,59 @@ class PartialCandController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute("app_partial_cand");
+    }
+
+    private function getNeedRelaunch(&$candidacies)
+    {
+        foreach($candidacies as $cand)
+        {
+            if($cand->getRelaunchDate() == null && $cand->getIssue() == null)
+            {
+                $now = new \DateTimeImmutable();
+
+                $delay = $now->diff($cand->getCandidacyDate())->format("%a");
+
+                if($delay < 28)
+                {
+                    $cand->needRelaunch = "#5bfe6a";
+                }
+
+                else
+                if($delay >= 28 && $delay < 35)
+                {
+                    $cand->needRelaunch = "yellow";
+                }
+
+                else
+                if($delay >= 35 && $delay < 42)
+                {
+                    $cand->needRelaunch = "#f9a33e";
+                }
+
+                else
+                if($delay >= 42 && $delay < 49)
+                {
+                    $cand->needRelaunch = "red";
+                }
+
+                else
+                if($delay >= 49)
+                {
+                    $cand->needRelaunch = "black";
+                }
+            }
+
+            else
+            if($cand->getFail())
+            {
+                $cand->needRelaunch = "#cacaca";
+            }
+
+            else
+            {
+                $cand->needRelaunch = "white";
+            }
+        }
     }
 
     private function getNeedRelaunchOne(&$cand)

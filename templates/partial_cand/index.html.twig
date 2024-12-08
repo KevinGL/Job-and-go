@@ -68,12 +68,12 @@
                         {% if cand.issue is null %}
                             Sans réponse pour le moment
                         {% elseif cand.issue == "ok" %}
-                            <b>Recruté :)</b>
+                            <b>Entretien obtenu :)</b>
                         {% elseif cand.issue == "no" %}
                             <b>Refusé :(</b>
                         {% endif %}
                     </td>
-                    <td></td>
+                    <td style="background-color: {{ cand.needRelaunch }}"></td>
                     <td><a type="button" class="btn btn-info" href={{ path('view_partial_cand', {'id': cand.id}) }}>Détail de la candidature</a></td>
                 </tr>
             {% endfor %}
