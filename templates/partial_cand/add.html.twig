@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'une candidature partielle{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Ajout d'une candidature</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.society) }}
+        <br>
+        {{ form_row(form.job) }}
+        <br>
+        {{ form_row(form.contractSearched) }}
+        <br>
+        {{ form_row(form.candidacy_date) }}
+        <br>
+        {{ form_row(form.comments) }}
+        <br>
+        <button type="submit" class="btn btn-primary">Ajouter la candidature partielle</button>
+    {{ form_end(form) }}
+
+    <br>
+    <a type="button" class="btn btn-info" href="{{ path('app_partial_cand') }}">Vos candidatures partielles</a>
+
+</div>
+
+<script>
+    /*$("#other").hide();
+
+    $("#form_type").click(() =>
+    {
+        if($("#form_type").val() == "Autre")
+        {
+            $("#other").show();
+        }
+    });
+
+    console.log($("#form_type").val("aa"));*/
+</script>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la candidature partielle{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <h1>Modifier la candidature partielle</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.society) }}
+        <br>
+        {{ form_row(form.contractSearched) }}
+        <br>
+        {{ form_row(form.candidacy_date) }}
+        <br>
+        {{ form_row(form.relaunch_date) }}
+        <br>
+        {{ form_row(form.comments) }}
+        <br>
+        {{ form_row(form.issue) }}
+        <br>
+        <button type="submit" class="btn btn-primary">Mettre à jour la candidature partielle</button>
+    {{ form_end(form) }}
+
+    <br>
+    <a type="button" class="btn btn-info" href="{{ path('app_partial_cand') }}">Vos candidatures</a>
+
+</div>
+{% endblock %}

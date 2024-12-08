@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de vos candidatures{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <h1>Liste de vos candidatures partielles</h1>
+
+    <br>
+
+    <a type="button" class="btn btn-info" href="{{ path('add_part_cand') }}">Ajouter une candidature partielle</a>
+    <div type="button" class="btn btn-danger" id="deleteSelected">Supprimer</div>
+    <br>
+    <br>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Sélectionner un mois
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="month" id="month" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" id="validMonth">Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col"><input type="checkbox" id="select_all" /></th>
+                <th scope="col">Nom de la société</th>
+                <th scope="col">Contrat recherché</th>
+                <th scope="col">Date de candidature</th>
+                <th scope="col">Date de relance</th>
+                <th scope="col">Poste proposé / recherhé</th>
+                <th scope="col">Issue</th>
+                <th scope="col">Urgence relance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cand in candidacies %}
+                <tr>
+                    <td ><input type="checkbox" class="checkbox" id="{{ cand.id }}" /></td>
+                    <th>{{ cand.society }}</th>
+                    <td>{{ cand.contractSearched }}</td>
+                    <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
+                    <td>{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
+                    <td>{{ cand.job }}</td>
+                    <td>
+                        {% if cand.issue is null %}
+                            Sans réponse pour le moment
+                        {% elseif cand.issue == "ok" %}
+                            <b>Recruté :)</b>
+                        {% elseif cand.issue == "no" %}
+                            <b>Refusé :(</b>
+                        {% endif %}
+                    </td>
+                    <td></td>
+                    <td><a type="button" class="btn btn-info" href={{ path('view_partial_cand', {'id': cand.id}) }}>Détail de la candidature</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
