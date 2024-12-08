@@ -77,6 +77,8 @@
                             <b>Refusé :(</b>
                         {% elseif cand.issue == "off" %}
                             <b>Offre expirée :(</b>
+                        {% elseif cand.issue == "unav" %}
+                            <b>Ne recrute pas :(</b>
                         {% endif %}
                     </td>
                     <td style="background-color: {{ cand.needRelaunch }}"></td>

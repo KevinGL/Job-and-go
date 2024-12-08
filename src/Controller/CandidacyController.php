@@ -67,6 +67,7 @@ class CandidacyController extends AbstractController
                     "La Bonne Boîte" => "La Bonne Boîte",
                     "La Bonne Alternance" => "La Bonne Alternance",
                     "Spontané" => "Spontané",
+                    "Interim" => "Interim",
                     "Autre" => "Autre"
                 ],
                 "label" => "Type de candidature"
@@ -107,7 +108,7 @@ class CandidacyController extends AbstractController
                 [
                     "class" => "form-control"
                 ],
-                "label" => "Poste proposé"
+                "label" => "Poste proposé / recherché"
             ])
 
             ->add("comments", TextareaType::class,
@@ -184,12 +185,16 @@ class CandidacyController extends AbstractController
                     ],
                     "choices" =>
                     [
-                        "Pôle Emploi" => "Pôle Emploi",
+                        "France Travail" => "France Travail",
                         "Indeed" => "Indeed",
+                        "Hello Work" => "Hello Work",
+                        "Welcome to the jungle" => "Welcome to the jungle",
+                        "Meteo Job" => "Meteo Job",
                         "LinkedIn" => "LinkedIn",
                         "La Bonne Boîte" => "La Bonne Boîte",
                         "La Bonne Alternance" => "La Bonne Alternance",
                         "Spontané" => "Spontané",
+                        "Interim" => "Interim",
                         "Autre" => "Autre"
                     ],
                     "label" => "Type de candidature"
@@ -254,6 +259,7 @@ class CandidacyController extends AbstractController
                         "Réponse positive :)" => "ok",
                         "Réponse négative :(" => "no",
                         "Offre expirée :(" => "off",
+                        "Ne recrute pas" => "unav"
                     ],
                     "label" => "Issue de la candidature"
                 ])
