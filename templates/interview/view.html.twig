@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'entretien{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <h1>Détail de l'entretien</h1>
+    <br>
+
+    <ul>
+        <li>Vous avez passé un entretien chez <u>{{ int.society }}</u> le {{ int.date | date("d-m-Y") }} via <u>{{ int.type }}</u>{% if int.job is not null %} pour le poste de <u>{{ int.job }}</u>{% endif %}</li>
+        
+        <li>
+            {% if int.relaunchDate is null %}
+                Vous n'avez pas relancé pour le moment
+            {% else %}
+                Vous avez relancé le {{ int.relaunchDate | date("d-m-Y") }}
+            {% endif %}
+        </li>
+
+        {% if int.comments is not null %}
+            <li>
+                Vous avez noté les infos suivantes :
+
+                <p>
+                    {{ int.comments | nl2br }}
+                </p>
+            </li>
+        {% endif %}
+
+        <li>
+            {% if int.issue is null %}
+                Vous êtes sans réponse pour le moment
+            {% elseif int.issue == "ok" %}
+                <b>Vous avez décroché le poste, félicitations !!! :) :)</b>
+            {% elseif int.issue == "no" %}
+                <b>Votre candidature a malheureusement été refusée :( :(</b>
+            {% endif %}
+        </li>
+
+        {% if int.needRelaunch != "white" %}
+            <li>
+                {% if int.needRelaunch == "#5bfe6a" %}
+                    <b>Il n'est pas encore temps de relancer les recruteurs</b>
+                {% elseif int.needRelaunch == "yellow" %}
+                    <b>Une relance serait envisageable</b>
+                {% elseif int.needRelaunch == "#f9a33e" %}
+                    <b>Il est important de relancer les recruteurs</b>
+                {% elseif int.needRelaunch == "red" %}
+                    <b>Il est urgent de relancer les recruteurs !!</b>
+                {% elseif int.needRelaunch == "black" %}
+                    <b>A relancer de toute urgence !!!</b>
+                {% endif %}
+            </li>
+        {% endif %}
+    </ul>
+
+    <br>
+    <a type="button" class="btn btn-success" href="{{ path('app_interview') }}">Listes de vos entretiens</a>
+    <a type="button" class="btn btn-warning" href="{{ path('edit_interview', {'id': int.id}) }}">Modifier cet entretien</a>
+    <a type="button" class="btn btn-danger" href="{{ path('delete_interview', {'id': int.id}) }}">Supprimer cet entretien</a>
+
+</div>
+
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression de votre candidature vers <u>{{ int.society }}</u></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr ?</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary" href="{{ path('delete_candidacies', {'id': int.id}) }}">Oui</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

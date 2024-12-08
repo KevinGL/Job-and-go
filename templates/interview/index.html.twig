@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de vos candidatures{% endblock %}
+{% block title %}Liste de vos entretiens de recrutement{% endblock %}
 
 {% block body %}
 <style>
@@ -9,21 +9,14 @@
 </style>
 
 <div class="container">
-    <h1>Liste de vos candidatures</h1>
+    <h1>Liste de vos entretiens de recrutement</h1>
 
     <br>
 
-    <a type="button" class="btn btn-info" href="{{ path('add_candidacy') }}">Ajouter une candidature</a>
+    <a type="button" class="btn btn-info" href="{{ path('add_interview') }}">Ajouter un entretien</a>
     <div type="button" class="btn btn-danger" id="deleteSelected">Supprimer</div>
     <br>
-    <a type="button" class="btn btn-info" href="{{ path('graph') }}" style="margin-top: 10px">Bilan du mois</a>
     <br>
-    <br>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Sélectionner un mois
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -51,7 +44,7 @@
                 <th scope="col">Nom de la société</th>
                 <th scope="col">Type de candidature</th>
                 <th scope="col">Contrat recherché</th>
-                <th scope="col">Date de candidature</th>
+                <th scope="col">Date de l'entretien</th>
                 <th scope="col">Poste proposé</th>
                 <th scope="col">Date de relance</th>
                 <th scope="col">Issue</th>
@@ -59,28 +52,26 @@
             </tr>
         </thead>
         <tbody>
-            {% for cand in candidacies %}
+            {% for int in interviews %}
                 <tr>
-                    <td><input type="checkbox" class="checkbox" id="{{ cand.id }}" /></td>
-                    <th scope="row">{{ cand.society }}</th>
-                    <td>{{ cand.type }}</td>
-                    <td>{{ cand.contractSearched }}</td>
-                    <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
-                    <td>{{ cand.job }}</td>
-                    <td>{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
+                    <td><input type="checkbox" class="checkbox" id="{{ int.id }}" /></td>
+                    <th scope="row">{{ int.society }}</th>
+                    <td>{{ int.type }}</td>
+                    <td>{{ int.searchedContract }}</td>
+                    <td>{{ int.date | date("d-m-Y") }}</td>
+                    <td>{{ int.job }}</td>
+                    <td>{{ (int.relaunchDate is not null) ? (int.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
                     <td>
-                        {% if cand.issue is null %}
+                        {% if int.issue is null %}
                             Sans réponse pour le moment
-                        {% elseif cand.issue == "ok" %}
-                            <b>Entretien obtenu :)</b>
-                        {% elseif cand.issue == "no" %}
+                        {% elseif int.issue == "ok" %}
+                            <b>Poste décroché :)</b>
+                        {% elseif int.issue == "no" %}
                             <b>Refusé :(</b>
-                        {% elseif cand.issue == "off" %}
-                            <b>Offre expirée :(</b>
                         {% endif %}
                     </td>
-                    <td style="background-color: {{ cand.needRelaunch }}"></td>
-                    <td><a type="button" class="btn btn-info" href={{ path('view_candidacy', {'id': cand.id}) }}>Détail de la candidature</a></td>
+                    <td style="background-color: {{ int.needRelaunch }}"></td>
+                    <td><a type="button" class="btn btn-info" href={{ path('view_interview', {'id': int.id}) }}>Détail de l'entretien</a></td>
                 </tr>
             {% endfor %}
         </tbody>
