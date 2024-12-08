@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Bienvenue dans Job and Go !</h1>
+
+    <br>
+
+    <ul>
+        <li><a href="{{ path('app_candidacies') }}">Vos candidatures</a></li>
+        <li><a href="{{ path('app_partial_cand') }}">Vos candidatures partielles</a></li>
+        <li><a href="{{ path('app_interview') }}">Vos entretiens</a></li>
+        <li><a href="{{ path('app_calls') }}">Vos appels sans suite</a></li>
+    </ul>
+
+</div>
+{% endblock %}
