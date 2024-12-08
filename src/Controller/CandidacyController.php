@@ -256,8 +256,26 @@ class CandidacyController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid())
         {
-            $entityManager->persist($cand);
-            $entityManager->flush();
+            if($cand->getIssue() != "ok")
+            {
+                $entityManager->persist($cand);
+                $entityManager->flush();
+            }
+
+            else
+            {
+                $entityManager->remove($cand);
+                $entityManager->flush();
+
+                return $this->redirectToRoute("add_interview",
+                [
+                    "society" => $cand->getSociety(),
+                    "type" => $cand->getType(),
+                    "job" => $cand->getJob(),
+                    "type" => $cand->getType(),
+                    "comments" => $cand->getComments()
+                ]);
+            }
 
             return $this->redirectToRoute("app_candidacies");
         }

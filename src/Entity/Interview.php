@@ -96,7 +96,7 @@ class Interview
         return $this->relaunchDate;
     }
 
-    public function setRelaunchDate(\DateTimeInterface $relaunchDate): static
+    public function setRelaunchDate(?\DateTimeInterface $relaunchDate): static
     {
         $this->relaunchDate = $relaunchDate;
 

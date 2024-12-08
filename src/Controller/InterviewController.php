@@ -36,7 +36,17 @@ class InterviewController extends AbstractController
     #[Route('/interview/add', name: 'add_interview')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $params = $request->query->all();
+        
         $interview = new interview();
+
+        if(isset($params["society"]) && isset($params["type"]) && isset($params["job"]) && isset($params["comments"]))
+        {
+            $interview->setSociety($params["society"]);
+            $interview->setType($params["type"]);
+            $interview->setJob($params["job"]);
+            $interview->setComments($params["comments"]);
+        }
         
         $form = $this->createFormBuilder($interview)
 
@@ -209,7 +219,7 @@ class InterviewController extends AbstractController
             ]
         ])
 
-        ->add("relaunch_date", DateType::class,
+        ->add("relaunchDate", DateType::class,
         [
             "widget" => "single_text",
             "label" => "Date de relance",
