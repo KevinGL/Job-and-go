@@ -9,26 +9,26 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Ajout d'une candidature</h1>
+    <h1>Ajout d'un appel sans suite</h1>
 
     {{ form_start(form) }}
         {{ form_row(form.society) }}
         <br>
-        {{ form_row(form.type) }}
-        <br>
-        {{ form_row(form.job) }}
+        {{ form_row(form.telNumber) }}
         <br>
         {{ form_row(form.contractSearched) }}
         <br>
-        {{ form_row(form.candidacy_date) }}
+        {{ form_row(form.date) }}
+        <br>
+        {{ form_row(form.job) }}
         <br>
         {{ form_row(form.comments) }}
         <br>
-        <button type="submit" class="btn btn-primary">Ajouter la candidature</button>
+        <button type="submit" class="btn btn-primary">Ajouter l'appel</button>
     {{ form_end(form) }}
 
     <br>
-    <a type="button" class="btn btn-info" href="{{ path('app_candidacies') }}">Vos candidatures</a>
+    <a type="button" class="btn btn-info" href="{{ path('app_calls') }}">Vos appels</a>
 
 </div>
 

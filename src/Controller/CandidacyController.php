@@ -41,101 +41,87 @@ class CandidacyController extends AbstractController
         
         $form = $this->createFormBuilder($candidacy)
 
-            ->add("society", TextType::class,
+        ->add("society", TextType::class,
+        [
+            "attr" =>
             [
-                "attr" =>
-                [
-                    "class" => "form-control"
-                ],
-                "label" => "Nom de la société"
-            ])
+                "class" => "form-control"
+            ],
+            "label" => "Nom de la société"
+        ])
 
-            ->add("type", ChoiceType::class,
+        ->add("type", ChoiceType::class,
+        [
+            "attr" =>
             [
-                "attr" =>
-                [
-                    "class" => "form-select"
-                ],
-                "choices" =>
-                [
-                    "France Travail" => "France Travail",
-                    "Indeed" => "Indeed",
-                    "Hello Work" => "Hello Work",
-                    "Welcome to the jungle" => "Welcome to the jungle",
-                    "Meteo Job" => "Meteo Job",
-                    "LinkedIn" => "LinkedIn",
-                    "La Bonne Boîte" => "La Bonne Boîte",
-                    "La Bonne Alternance" => "La Bonne Alternance",
-                    "Spontané" => "Spontané",
-                    "Interim" => "Interim",
-                    "Autre" => "Autre"
-                ],
-                "label" => "Type de candidature"
-            ])
-
-            ->add("contractSearched", ChoiceType::class,
+                "class" => "form-select"
+            ],
+            "choices" =>
             [
-                "attr" =>
-                [
-                    "class" => "form-select"
-                ],
-                "choices" =>
-                [
-                    "CDD/CDI" => "CDD/CDI",
-                    "Stage" => "Stage",
-                    "Alternance" => "Alternance",
-                    "Autre" => "Autre"
-                ],
-                "label" => "Type de contrat recherché"
-            ])
+                "France Travail" => "France Travail",
+                "Indeed" => "Indeed",
+                "Hello Work" => "Hello Work",
+                "Welcome to the jungle" => "Welcome to the jungle",
+                "Meteo Job" => "Meteo Job",
+                "LinkedIn" => "LinkedIn",
+                "La Bonne Boîte" => "La Bonne Boîte",
+                "La Bonne Alternance" => "La Bonne Alternance",
+                "Spontané" => "Spontané",
+                "Interim" => "Interim",
+                "Autre" => "Autre"
+            ],
+            "label" => "Type de candidature"
+        ])
 
-            ->add("candidacy_date", DateType::class,
+        ->add("contractSearched", ChoiceType::class,
+        [
+            "attr" =>
             [
-                "widget" => "single_text",
-                "label" => "Date de candidature",
-                "attr" =>
-                [
-                    "class" => "form-control form-icon-trailing"
-                ],
-                "data" => new \DateTimeImmutable()
-            ])
-
-            //->add("relaunch_date", DateType::class)
-
-            ->add("job", TextType::class,
+                "class" => "form-select"
+            ],
+            "choices" =>
             [
-                "attr" =>
-                [
-                    "class" => "form-control"
-                ],
-                "label" => "Poste proposé / recherché"
-            ])
+                "CDD/CDI" => "CDD/CDI",
+                "Stage" => "Stage",
+                "Alternance" => "Alternance",
+                "Autre" => "Autre"
+            ],
+            "label" => "Type de contrat recherché"
+        ])
 
-            ->add("comments", TextareaType::class,
+        ->add("candidacy_date", DateType::class,
+        [
+            "widget" => "single_text",
+            "label" => "Date de candidature",
+            "attr" =>
             [
-                "attr" =>
-                [
-                    "class" => "form-control"
-                ],
-                "label" => "Commentaires",
-                "required" => false
-            ])
+                "class" => "form-control form-icon-trailing"
+            ],
+            "data" => new \DateTimeImmutable()
+        ])
 
-            ->add("fail", ChoiceType::class,
+        //->add("relaunch_date", DateType::class)
+
+        ->add("job", TextType::class,
+        [
+            "attr" =>
             [
-                "attr" =>
-                [
-                    "class" => "form-select"
-                ],
-                "choices" =>
-                [
-                    "Oui" => true,
-                    "Non" => false
-                ],
-                "label" => "Candidature ne pouvant aboutir"
-            ])
+                "class" => "form-control"
+            ],
+            "label" => "Poste proposé / recherché"
+        ])
 
-            ->getForm();
+        ->add("comments", TextareaType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-control"
+            ],
+            "label" => "Commentaires",
+            "required" => false
+        ])
+
+        ->getForm();
         
         $form->handleRequest($request);
         
@@ -168,129 +154,115 @@ class CandidacyController extends AbstractController
 
         $form = $this->createFormBuilder($cand)
 
-				->add("society", TextType::class,
-                [
-                    "attr" =>
-                    [
-                        "class" => "form-control"
-                    ],
-                    "label" => "Nom de la société"
-                ])
+        ->add("society", TextType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-control"
+            ],
+            "label" => "Nom de la société"
+        ])
 
-				->add("type", ChoiceType::class,
-                [
-                    "attr" =>
-                    [
-                        "class" => "form-select"
-                    ],
-                    "choices" =>
-                    [
-                        "France Travail" => "France Travail",
-                        "Indeed" => "Indeed",
-                        "Hello Work" => "Hello Work",
-                        "Welcome to the jungle" => "Welcome to the jungle",
-                        "Meteo Job" => "Meteo Job",
-                        "LinkedIn" => "LinkedIn",
-                        "La Bonne Boîte" => "La Bonne Boîte",
-                        "La Bonne Alternance" => "La Bonne Alternance",
-                        "Spontané" => "Spontané",
-                        "Interim" => "Interim",
-                        "Autre" => "Autre"
-                    ],
-                    "label" => "Type de candidature"
-                ])
+        ->add("type", ChoiceType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-select"
+            ],
+            "choices" =>
+            [
+                "France Travail" => "France Travail",
+                "Indeed" => "Indeed",
+                "Hello Work" => "Hello Work",
+                "Welcome to the jungle" => "Welcome to the jungle",
+                "Meteo Job" => "Meteo Job",
+                "LinkedIn" => "LinkedIn",
+                "La Bonne Boîte" => "La Bonne Boîte",
+                "La Bonne Alternance" => "La Bonne Alternance",
+                "Spontané" => "Spontané",
+                "Interim" => "Interim",
+                "Autre" => "Autre"
+            ],
+            "label" => "Type de candidature"
+        ])
 
-                ->add("contractSearched", ChoiceType::class,
-                [
-                    "attr" =>
-                    [
-                        "class" => "form-select"
-                    ],
-                    "choices" =>
-                    [
-                        "CDD/CDI" => "CDD/CDI",
-                        "Stage" => "Stage",
-                        "Alternance" => "Alternance",
-                        "Autre" => "Autre"
-                    ],
-                    "label" => "Type de contrat recherché"
-                ])
+        ->add("contractSearched", ChoiceType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-select"
+            ],
+            "choices" =>
+            [
+                "CDD/CDI" => "CDD/CDI",
+                "Stage" => "Stage",
+                "Alternance" => "Alternance",
+                "Autre" => "Autre"
+            ],
+            "label" => "Type de contrat recherché"
+        ])
 
-				->add("candidacy_date", DateType::class,
-                [
-                    "widget" => "single_text",
-                    "label" => "Date de candidature",
-                    "attr" =>
-                    [
-                        "class" => "form-control form-icon-trailing"
-                    ]
-                ])
+        ->add("candidacy_date", DateType::class,
+        [
+            "widget" => "single_text",
+            "label" => "Date de candidature",
+            "attr" =>
+            [
+                "class" => "form-control form-icon-trailing"
+            ]
+        ])
 
-                ->add("relaunch_date", DateType::class,
-                [
-                    "widget" => "single_text",
-                    "label" => "Date de relance",
-                    "attr" =>
-                    [
-                        "class" => "form-control form-icon-trailing"
-                    ],
-                    "required" => false
-                ])
+        ->add("relaunch_date", DateType::class,
+        [
+            "widget" => "single_text",
+            "label" => "Date de relance",
+            "attr" =>
+            [
+                "class" => "form-control form-icon-trailing"
+            ],
+            "required" => false
+        ])
 
-				->add("comments", TextareaType::class,
-                [
-                    "attr" =>
-                    [
-                        "class" => "form-control"
-                    ],
-                    "label" => "Commentaires",
-                    "required" => false
-                ])
+        ->add("comments", TextareaType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-control"
+            ],
+            "label" => "Commentaires",
+            "required" => false
+        ])
 
-				->add("issue", ChoiceType::class,
-                [
-                    "attr" =>
-                    [
-                        "class" => "form-select"
-                    ],
-                    "choices" =>
-                    [
-                        "Pas de réponse pour le moment" => null,
-                        "Entretien obtenu :)" => "ok",
-                        "Réponse négative :(" => "no",
-                        "Offre expirée :(" => "off",
-                        "Ne recrute pas" => "unav"
-                    ],
-                    "label" => "Issue de la candidature"
-                ])
+        ->add("issue", ChoiceType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-select"
+            ],
+            "choices" =>
+            [
+                "Pas de réponse pour le moment" => null,
+                "Entretien obtenu :)" => "ok",
+                "Réponse négative :(" => "no",
+                "Offre expirée :(" => "off",
+                "Ne recrute pas" => "unav"
+            ],
+            "label" => "Issue de la candidature"
+        ])
+        
+        ->getForm();
+        
+        $form->handleRequest($request);	
+        
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->persist($cand);
+            $entityManager->flush();
 
-                ->add("fail", ChoiceType::class,
-                [
-                    "attr" =>
-                    [
-                        "class" => "form-select"
-                    ],
-                    "choices" =>
-                    [
-                        "Oui" => true,
-                        "Non" => false
-                    ],
-                    "label" => "Candidature ne pouvant aboutir"
-                ])
-                
-				->getForm();
-			
-			$form->handleRequest($request);	
-			
-			if($form->isSubmitted() && $form->isValid())
-			{
-				$entityManager->persist($cand);
-                $entityManager->flush();
-
-                return $this->redirectToRoute("app_candidacies");
-			}
-			
-			return $this->render('candidacy/edit.html.twig', ["form" => $form]);
+            return $this->redirectToRoute("app_candidacies");
+        }
+        
+        return $this->render('candidacy/edit.html.twig', ["form" => $form]);
     }
 
     #[Route('/candidacies/delete/{id}', name: 'delete_candidacies')]
@@ -308,7 +280,7 @@ class CandidacyController extends AbstractController
     {
         foreach($candidacies as $cand)
         {
-            if($cand->getRelaunchDate() == null && $cand->getIssue() == null && !$cand->getFail())
+            if($cand->getRelaunchDate() == null && $cand->getIssue() == null)
             {
                 $now = new \DateTimeImmutable();
 
@@ -342,12 +314,6 @@ class CandidacyController extends AbstractController
                 {
                     $cand->needRelaunch = "black";
                 }
-            }
-
-            else
-            if($cand->getFail())
-            {
-                $cand->needRelaunch = "#cacaca";
             }
 
             else

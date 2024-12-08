@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'appel sans suite{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <h1>Détail de l'appel sans suite</h1>
+    <br>
+
+    <ul>
+        <li>Vous avez appelé la société <u>{{ call.society }}</u> le {{ call.date | date("d-m-Y") }} pour le poste de <u>{{ call.job }}</u></li>
+        
+        {% if call.comments is not null %}
+            <li>
+                Vous avez noté les infos suivantes :
+
+                <p>
+                    {{ call.comments | nl2br }}
+                </p>
+            </li>
+        {% endif %}
+    </ul>
+
+    <br>
+    <a type="button" class="btn btn-success" href="{{ path('app_calls') }}">Listes de vos appels sans suite</a>
+    <a type="button" class="btn btn-warning" href="{{ path('edit_call', {'id': call.id}) }}">Modifier cet appel</a>
+    <a type="button" class="btn btn-danger" href="{{ path('delete_call', {'id': call.id}) }}">Supprimer cet appel</a>
+
+</div>
+
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression de votre candidature vers <u>{{ call.society }}</u></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr ?</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary" href="{{ path('delete_candidacies', {'id': call.id}) }}">Oui</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

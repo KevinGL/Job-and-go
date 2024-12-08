@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier la candidature{% endblock %}
+{% block title %}Modifier l'appel'{% endblock %}
 
 {% block body %}
 <style>
@@ -9,28 +9,26 @@
 </style>
 
 <div class="container">
-    <h1>Modifier la candidature</h1>
+    <h1>Modifier l'appel'</h1>
 
     {{ form_start(form) }}
         {{ form_row(form.society) }}
         <br>
-        {{ form_row(form.type) }}
+        {{ form_row(form.telNumber) }}
         <br>
         {{ form_row(form.contractSearched) }}
         <br>
-        {{ form_row(form.candidacy_date) }}
+        {{ form_row(form.date) }}
         <br>
-        {{ form_row(form.relaunch_date) }}
+        {{ form_row(form.job) }}
         <br>
         {{ form_row(form.comments) }}
         <br>
-        {{ form_row(form.issue) }}
-        <br>
-        <button type="submit" class="btn btn-primary">Mettre à jour la candidature</button>
+        <button type="submit" class="btn btn-primary">Mettre à jour l'appel</button>
     {{ form_end(form) }}
 
     <br>
-    <a type="button" class="btn btn-info" href="{{ path('app_candidacies') }}">Vos candidatures</a>
+    <a type="button" class="btn btn-info" href="{{ path('app_calls') }}">Vos appels sans suite</a>
 
 </div>
 {% endblock %}

@@ -61,14 +61,14 @@
         <tbody>
             {% for cand in candidacies %}
                 <tr>
-                    <td style="background-color:{{ cand.fail ? "#cacaca" : "white" }}"><input type="checkbox" class="checkbox" id="{{ cand.id }}" /></td>
-                    <th scope="row" style="background-color:{{ cand.fail ? "#cacaca" : "white" }}">{{ cand.society }}</th>
-                    <td style="background-color:{{ cand.fail ? "#cacaca" : "white" }}">{{ cand.type }}</td>
-                    <td style="background-color:{{ cand.fail ? "#cacaca" : "white" }}">{{ cand.contractSearched }}</td>
-                    <td style="background-color:{{ cand.fail ? "#cacaca" : "white" }}">{{ cand.candidacyDate | date("d-m-Y") }}</td>
-                    <td style="background-color:{{ cand.fail ? "#cacaca" : "white" }}">{{ cand.job }}</td>
-                    <td style="background-color:{{ cand.fail ? "#cacaca" : "white" }}">{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
-                    <td style="background-color:{{ cand.fail ? "#cacaca" : "white" }}">
+                    <td><input type="checkbox" class="checkbox" id="{{ cand.id }}" /></td>
+                    <th scope="row">{{ cand.society }}</th>
+                    <td>{{ cand.type }}</td>
+                    <td>{{ cand.contractSearched }}</td>
+                    <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
+                    <td>{{ cand.job }}</td>
+                    <td>{{ (cand.relaunchDate is not null) ? (cand.relaunchDate | date("d-m-Y")) : "N/A" }}</td>
+                    <td>
                         {% if cand.issue is null %}
                             Sans réponse pour le moment
                         {% elseif cand.issue == "ok" %}

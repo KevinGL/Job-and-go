@@ -39,9 +39,6 @@ class Candidacy
     #[ORM\Column(length: 255)]
     private ?string $job = null;
 
-    #[ORM\Column]
-    private ?bool $fail = false;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -146,18 +143,6 @@ class Candidacy
     public function setJob(string $job): static
     {
         $this->job = $job;
-
-        return $this;
-    }
-
-    public function getFail(): ?bool
-    {
-        return $this->fail;
-    }
-
-    public function setFail(bool $fail): static
-    {
-        $this->fail = $fail;
 
         return $this;
     }
