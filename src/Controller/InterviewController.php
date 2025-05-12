@@ -249,8 +249,8 @@ class InterviewController extends AbstractController
             "choices" =>
             [
                 "Pas de réponse pour le moment" => null,
-                "Poste décroché :)" => "ok",
-                "Réponse négative :(" => "no"
+                "Poste décroché 😀" => "ok",
+                "Réponse négative 😔" => "no"
             ],
             "label" => "Issue de la candidature"
         ])

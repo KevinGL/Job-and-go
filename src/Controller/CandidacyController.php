@@ -111,6 +111,15 @@ class CandidacyController extends AbstractController
             "label" => "Poste proposé / recherché"
         ])
 
+        ->add("city", TextType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-control"
+            ],
+            "label" => "Ville"
+        ])
+
         ->add("comments", TextareaType::class,
         [
             "attr" =>
@@ -186,6 +195,15 @@ class CandidacyController extends AbstractController
             "label" => "Type de candidature"
         ])
 
+        ->add("city", TextType::class,
+        [
+            "attr" =>
+            [
+                "class" => "form-control"
+            ],
+            "label" => "Ville"
+        ])
+
         ->add("contractSearched", ChoiceType::class,
         [
             "attr" =>
@@ -242,9 +260,9 @@ class CandidacyController extends AbstractController
             "choices" =>
             [
                 "Pas de réponse pour le moment" => null,
-                "Entretien obtenu :)" => "ok",
-                "Réponse négative :(" => "no",
-                "Offre expirée :(" => "off",
+                "Entretien obtenu 😀" => "ok",
+                "Réponse négative 😔" => "no",
+                "Offre expirée 😔" => "off",
                 "Ne recrute pas" => "unav"
             ],
             "label" => "Issue de la candidature"
@@ -304,31 +322,31 @@ class CandidacyController extends AbstractController
 
                 $delay = $now->diff($cand->getCandidacyDate())->format("%a");
 
-                if($delay < 7)
+                if($delay < 14)
                 {
                     $cand->needRelaunch = "#5bfe6a";
                 }
 
                 else
-                if($delay >= 7 && $delay < 14)
+                if($delay >= 14 && $delay < 21)
                 {
                     $cand->needRelaunch = "yellow";
                 }
 
                 else
-                if($delay >= 14 && $delay < 21)
+                if($delay >= 21 && $delay < 28)
                 {
                     $cand->needRelaunch = "#f9a33e";
                 }
 
                 else
-                if($delay >= 21 && $delay < 28)
+                if($delay >= 28 && $delay < 35)
                 {
                     $cand->needRelaunch = "red";
                 }
 
                 else
-                if($delay >= 28)
+                if($delay >= 35)
                 {
                     $cand->needRelaunch = "black";
                 }
@@ -349,31 +367,31 @@ class CandidacyController extends AbstractController
 
             $delay = $now->diff($cand->getCandidacyDate())->format("%a");
 
-            if($delay < 7)
+            if($delay < 14)
             {
                 $cand->needRelaunch = "#5bfe6a";
             }
 
             else
-            if($delay >= 7 && $delay < 14)
+            if($delay >= 14 && $delay < 21)
             {
                 $cand->needRelaunch = "yellow";
             }
 
             else
-            if($delay >= 14 && $delay < 21)
+            if($delay >= 21 && $delay < 28)
             {
                 $cand->needRelaunch = "#f9a33e";
             }
 
             else
-            if($delay >= 21 && $delay < 28)
+            if($delay >= 28 && $delay < 35)
             {
                 $cand->needRelaunch = "red";
             }
 
             else
-            if($delay >= 28)
+            if($delay >= 35)
             {
                 $cand->needRelaunch = "black";
             }

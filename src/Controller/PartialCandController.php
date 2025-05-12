@@ -193,8 +193,8 @@ class PartialCandController extends AbstractController
                 "choices" =>
                 [
                     "Pas de réponse pour le moment" => null,
-                    "Entretien obtenu :)" => "ok",
-                    "Réponse négative :(" => "no"
+                    "Entretien obtenu 😀" => "ok",
+                    "Réponse négative 😔" => "no"
                 ],
                 "label" => "Issue de la candidature"
             ])
@@ -235,40 +235,34 @@ class PartialCandController extends AbstractController
 
                 $delay = $now->diff($cand->getCandidacyDate())->format("%a");
 
-                if($delay < 28)
+                if($delay < 56)
                 {
                     $cand->needRelaunch = "#5bfe6a";
                 }
 
                 else
-                if($delay >= 28 && $delay < 35)
+                if($delay >= 56 && $delay < 63)
                 {
                     $cand->needRelaunch = "yellow";
                 }
 
                 else
-                if($delay >= 35 && $delay < 42)
+                if($delay >= 63 && $delay < 70)
                 {
                     $cand->needRelaunch = "#f9a33e";
                 }
 
                 else
-                if($delay >= 42 && $delay < 49)
+                if($delay >= 70 && $delay < 77)
                 {
                     $cand->needRelaunch = "red";
                 }
 
                 else
-                if($delay >= 49)
+                if($delay >= 77)
                 {
                     $cand->needRelaunch = "black";
                 }
-            }
-
-            else
-            if($cand->getFail())
-            {
-                $cand->needRelaunch = "#cacaca";
             }
 
             else
@@ -286,31 +280,31 @@ class PartialCandController extends AbstractController
 
             $delay = $now->diff($cand->getCandidacyDate())->format("%a");
 
-            if($delay < 28)
+            if($delay < 56)
             {
                 $cand->needRelaunch = "#5bfe6a";
             }
 
             else
-            if($delay >= 28 && $delay < 35)
+            if($delay >= 56 && $delay < 63)
             {
                 $cand->needRelaunch = "yellow";
             }
 
             else
-            if($delay >= 35 && $delay < 42)
+            if($delay >= 63 && $delay < 70)
             {
                 $cand->needRelaunch = "#f9a33e";
             }
 
             else
-            if($delay >= 42 && $delay < 49)
+            if($delay >= 70 && $delay < 77)
             {
                 $cand->needRelaunch = "red";
             }
 
             else
-            if($delay >= 49)
+            if($delay >= 77)
             {
                 $cand->needRelaunch = "black";
             }

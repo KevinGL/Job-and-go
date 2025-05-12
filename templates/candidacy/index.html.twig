@@ -44,6 +44,7 @@
                 <th scope="col"><input type="checkbox" id="select_all" /></th>
                 <th scope="col">Nom de la société</th>
                 <th scope="col">Type de candidature</th>
+                <th scope="col">Ville</th>
                 <th scope="col">Contrat recherché</th>
                 <th scope="col">Date de candidature</th>
                 <th scope="col">Poste proposé</th>
@@ -58,6 +59,7 @@
                     <td><input type="checkbox" class="checkbox" id="{{ cand.id }}" /></td>
                     <th scope="row">{{ cand.society }}</th>
                     <td>{{ cand.type }}</td>
+                    <td>{{ cand.city }}</td>
                     <td>{{ cand.contractSearched }}</td>
                     <td>{{ cand.candidacyDate | date("d-m-Y") }}</td>
                     <td>{{ cand.job }}</td>
@@ -66,11 +68,11 @@
                         {% if cand.issue is null %}
                             Sans réponse pour le moment
                         {% elseif cand.issue == "ok" %}
-                            <b>Entretien obtenu :)</b>
+                            <b>Entretien obtenu 😀</b>
                         {% elseif cand.issue == "no" %}
-                            <b>Refusé :(</b>
+                            <b>Refusé 😔</b>
                         {% elseif cand.issue == "off" %}
-                            <b>Offre expirée :(</b>
+                            <b>Offre expirée 😔</b>
                         {% endif %}
                     </td>
                     <td style="background-color: {{ cand.needRelaunch }}"></td>
