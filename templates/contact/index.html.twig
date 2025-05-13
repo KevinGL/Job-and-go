@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de vos appels sans suite{% endblock %}
+{% block title %}Liste de vos contacts{% endblock %}
 
 {% block body %}
 <style>
@@ -9,13 +9,12 @@
 </style>
 
 <div class="container">
-    <h1>Liste de vos appels sans suite</h1>
+    <h1>Liste de vos contacts</h1>
 
     <br>
 
-    <a type="button" class="btn btn-info" href="{{ path('add_call') }}">Ajouter un appel</a>
+    <a type="button" class="btn btn-info" href="{{ path('add_contact') }}">Ajouter un contact</a>
     <div type="button" class="btn btn-danger" id="deleteSelected">Supprimer</div>
-    <br>
     <br>
 
     <!-- Modal -->
@@ -40,24 +39,22 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col"><input type="checkbox" id="select_all" /></th>
-                <th scope="col">Nom de la société</th>
-                <th scope="col">Numéro de téléphone</th>
-                <th scope="col">Contrat recherché</th>
-                <th scope="col">Date de l'appel</th>
-                <th scope="col">Poste recherché</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Société</th>
+                <th scope="col">Adresse email</th>
+                <th scope="col">Numéro de tél</th>
+                <th scope="col">Contacté ?</th>
             </tr>
         </thead>
         <tbody>
-            {% for call in calls %}
+            {% for contact in contacts %}
                 <tr>
-                    <td id="{{ call.id }}" /></td>
-                    <th scope="row">{{ call.society }}</th>
-                    <td>{{ call.telNumber }}</td>
-                    <td>{{ call.contractSearched }}</td>
-                    <td>{{ call.date | date("d-m-Y") }}</td>
-                    <td>{{ call.job }}</td>
-                    <td><a type="button" class="btn btn-info" href={{ path('view_call', {'id': call.id}) }}>Détail de l'appel</a></td>
+                    <th scope="row">{{ contact.name }}</th>
+                    <td>{{ contact.society is not null ? contact.society : "N/A" }}</td>
+                    <td>{{ contact.email is not null ? contact.email : "N/A" }}</td>
+                    <td>{{ contact.telNumber is not null ? contact.telNumber : "N/A" }}</td>
+                    <td>{{ contact.contacted ? "Oui" : "Non" }}</td>
+                    <td><a type="button" class="btn btn-info" href={{ path('view_contact', {'id': contact.id}) }}>Détails</a></td>
                 </tr>
             {% endfor %}
         </tbody>

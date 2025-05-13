@@ -15,6 +15,14 @@
         {% endblock %}
     </head>
     <body>
+        {% include "navbar.html.twig" %}
+        
+        {% for type, messages in app.flashes %}
+            <div class="alert alert-{{ type }}">
+                {{ messages | join(". ") }}
+            </div>
+        {% endfor %}
+
         {% block body %}{% endblock %}
     </body>
 </html>
